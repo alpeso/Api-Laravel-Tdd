@@ -81,6 +81,9 @@ class ListArticleTest extends TestCase
                     ]
                 ]
 
+            ],
+            'links' => [
+                'self' => route('api.v1.articles.index')
             ]
         ]);
     }

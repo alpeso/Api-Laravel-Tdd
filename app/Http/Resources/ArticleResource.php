@@ -14,6 +14,17 @@ class ArticleResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'type' => 'articles',
+            'id' => (string) $this->resource->getRouteKey(),
+            'attributes' =>[
+                'title' => $this->resource->title,
+                'slug' => $this->resource->slug,
+                'content' => $this->resource->content,
+            ],
+            'links' => [
+                'self' => route('api.v1.articles.show', $this->resource)
+            ]
+        ];
     }
 }
