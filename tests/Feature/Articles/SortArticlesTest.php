@@ -11,7 +11,6 @@ class SortArticlesTest extends TestCase
 {
     use RefreshDatabase;
 
-
     /** @test */
     public function it_can_sort_articles_by_title_asc()
     {

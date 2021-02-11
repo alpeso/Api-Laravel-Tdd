@@ -11,8 +11,14 @@ class ArticleController extends Controller
 {
     public function index()
     {
-        $sortRawFields = request('sort');
-        $articles = $sortRawFields ? Article::applySorts( $sortRawFields )->get() : Article::all();
+        $articles = Article::applySorts( request('sort') )
+            ->paginate(
+                $perPage = request('page.size'),
+                $columns = ['*'],
+                $pageName = 'page[number]',
+                $page = request('page.number')
+            )->appends(request()->except('page.number'));
+      
         return ArticleCollection::make($articles);
     }
 
