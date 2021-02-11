@@ -3,11 +3,16 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Traits\HasSorts;
+use Illuminate\Support\Str;
 
 class Article extends Model
 {
-    use HasFactory;
+    use HasFactory, HasSorts;    
+        
+    public $allowedSorts = ['title', 'content'];
 
     /**
      * The attributes that aren't mass assignable.
@@ -27,7 +32,6 @@ class Article extends Model
         'user_id' => 'integer',
     ];
 
-
     public function category()
     {
         return $this->belongsTo(\App\Models\Category::class);
@@ -37,4 +41,5 @@ class Article extends Model
     {
         return $this->belongsTo(\App\Models\User::class);
     }
+
 }
