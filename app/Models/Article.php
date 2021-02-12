@@ -3,14 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Traits\HasSorts;
-use Illuminate\Support\Str;
 
 class Article extends Model
 {
-    use HasFactory, HasSorts;    
+    use HasFactory;    
         
     public $allowedSorts = ['title', 'content'];
 
