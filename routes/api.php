@@ -3,6 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\ArticleController;
+use CloudCreativity\LaravelJsonApi\Facades\JsonApi;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -14,5 +16,9 @@ use App\Http\Controllers\Api\ArticleController;
 |
 */
 
-Route::get('articles/{article}','ArticleController@show')->name('api.v1.articles.show');
-Route::get('articles','ArticleController@index')->name('api.v1.articles.index');
+// Route::get('articles/{article}','ArticleController@show')->name('api.v1.articles.read');
+// Route::get('articles','ArticleController@index')->name('api.v1.articles.index');
+
+JsonApi::register('v1')->routes(function($api){
+    $api->resource('articles');
+});
