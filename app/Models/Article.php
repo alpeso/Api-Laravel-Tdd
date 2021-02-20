@@ -10,9 +10,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Article extends Model
 {
-    use HasFactory;    
-        
-    public $allowedSorts = ['title', 'content'];
+    use HasFactory;
 
     /**
      * The attributes that aren't mass assignable.
