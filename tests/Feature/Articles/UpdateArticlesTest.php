@@ -3,6 +3,7 @@
 namespace Tests\Feature\Articles;
 
 use Tests\TestCase;
+use App\Models\User;
 use App\Models\Article;
 use Laravel\Sanctum\Sanctum;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -49,6 +50,34 @@ class UpdateArticlesTest extends TestCase
             'content' => 'Content changed',
         ]);
 
+    }
+
+    /** @test */
+    public function authenticated_users_cannot_update_others_articles()
+    {
+        $article = Article::factory()->create();
+
+        Sanctum::actingAs($user = User::factory()->create());
+
+        $this->jsonApi()
+            ->withData([
+                'type' => 'articles',
+                'id' => $article->getRouteKey(),
+                'attributes' => [
+                    'title' => 'Title changed',
+                    'slug' => 'title-changed',
+                    'content' => 'Content changed',
+                ]
+            ])
+            ->patch(route('api.v1.articles.update', $article))
+            ->assertStatus(403)
+        ;
+
+        $this->assertDatabaseMissing('articles', [
+            'title' => 'Title changed',
+            'slug' => 'title-changed',
+            'content' => 'Content changed',
+        ]);
     }
 
 
@@ -100,4 +129,5 @@ class UpdateArticlesTest extends TestCase
         ]);
 
     }
+
 }
