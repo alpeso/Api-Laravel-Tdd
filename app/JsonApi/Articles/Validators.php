@@ -3,6 +3,7 @@
 namespace App\JsonApi\Articles;
 
 use App\Rules\Slug;
+use Illuminate\Validation\Rule;
 use CloudCreativity\LaravelJsonApi\Validation\AbstractValidators;
 
 class Validators extends AbstractValidators
@@ -49,8 +50,8 @@ class Validators extends AbstractValidators
             'slug' => [
                 'required',
                 'alpha_dash',
-                'unique:articles',
                 new Slug,
+                Rule::unique('articles')->ignore($record)
             ],
         ];
     }
